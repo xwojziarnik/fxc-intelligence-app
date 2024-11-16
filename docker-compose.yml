@@ -51,5 +51,22 @@ services:
     env_file:
       - .env
 
+  receiver:
+    build:
+      context: .
+      dockerfile: Dockerfile.receiver
+    command: receiver
+    init: true
+    depends_on:
+      - postgres
+      - rabbitmq
+      - producer
+    networks:
+      - app_network
+    volumes:
+      - ./cron-logs:/var/log/
+    env_file:
+      - .env
+
 networks:
   app_network:
