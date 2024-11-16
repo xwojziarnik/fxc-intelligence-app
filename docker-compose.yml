@@ -11,6 +11,8 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - app_network
 
   keydb:
     image: eqalpha/keydb:latest
@@ -19,6 +21,8 @@ services:
       - ./keydb_data:/data
     ports:
       - "6379:6379"
+    networks:
+      - app_network
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -30,6 +34,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - app_network
 
   producer:
     build:
@@ -40,3 +46,10 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+    networks:
+      - app_network
+    env_file:
+      - .env
+
+networks:
+  app_network:
