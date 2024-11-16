@@ -32,7 +32,10 @@ services:
       - "15672:15672"
 
   producer:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.producer
+    command: producer
     init: true
     depends_on:
       - postgres
