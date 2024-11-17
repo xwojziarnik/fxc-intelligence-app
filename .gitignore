@@ -2,6 +2,6 @@ keydb_data/
 rabbitmq_data/
 postgres_data/
 .python-version
-*/__pycache__/
+**/__pycache__/
 .env
 cron-logs/
