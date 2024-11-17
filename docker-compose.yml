@@ -63,8 +63,6 @@ services:
       - producer
     networks:
       - app_network
-    volumes:
-      - ./cron-logs:/var/log/
     env_file:
       - .env
 

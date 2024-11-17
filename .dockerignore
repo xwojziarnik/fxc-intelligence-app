@@ -3,4 +3,3 @@
 !Dockerfile.*
 !.env
 !requirements.*
-!save-data-cron

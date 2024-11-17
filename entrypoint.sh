@@ -5,8 +5,6 @@ case "$1" in
     echo "Loading env variables..."
     source .env
     echo "Starting microservice receiver..."
-    echo "Starting cron..."
-    cron -f &
     echo "Starting python..."
     python -u receiver.py
     ;;
