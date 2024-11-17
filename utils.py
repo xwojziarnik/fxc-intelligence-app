@@ -21,7 +21,7 @@ from settings import settings
 
 def connect_to_postgres(
     username: str, password: str, host: str, port: str, db_name: str
-) -> Optional[connection]:  
+) -> Optional[connection]:
     attempt_count: int = 0
     while attempt_count < 10:
         try:
@@ -58,7 +58,7 @@ def connect_to_rabbitmq(
         return
 
 
-def connect_to_redis(url: str) -> Optional[Redis]:  
+def connect_to_redis(url: str) -> Optional[Redis]:
     attempt_count: int = 0
     while attempt_count < 10:
         try:
@@ -73,7 +73,7 @@ def connect_to_redis(url: str) -> Optional[Redis]:
 
 
 def save_transaction_to_postgres(account_id: int, transaction_amount: int) -> None:
-    db_connection: connection = connect_to_postgres(  
+    db_connection: connection = connect_to_postgres(
         username=settings.postgres_db_user,
         password=settings.postgres_db_password,
         db_name=settings.postgres_db_name,
@@ -91,7 +91,7 @@ def save_transaction_to_postgres(account_id: int, transaction_amount: int) -> No
 
 
 def update_provider_balance(providers_id: int, amount: int) -> None:
-    db_connection: connection = connect_to_postgres(  
+    db_connection: connection = connect_to_postgres(
         username=settings.postgres_db_user,
         password=settings.postgres_db_password,
         db_name=settings.postgres_db_name,
@@ -122,7 +122,7 @@ def callback_after_receiving_a_message(
 def prepare_postgres_database_with_initial_data(
     username: str, password: str, db_name: str, host: str, port: str, sql_queries: list[str]
 ) -> None:
-    db_connection: connection = connect_to_postgres(  
+    db_connection: connection = connect_to_postgres(
         username=username,
         password=password,
         db_name=db_name,
