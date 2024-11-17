@@ -41,13 +41,6 @@ def update_account_balances_in_keydb() -> None:
             print(error)
 
 
-if __name__ == "__main__":
-    try:
-        create_logs_dir(f"{os.getcwd()}/updater_logs")
-        update_account_balances_in_keydb()
-    except KeyboardInterrupt:
-        print("Interrupted")
-        try:
-            sys.exit(0)
-        except SystemExit:
-            os._exit(0)
+def updater_main() -> None:
+    create_logs_dir(f"{os.getcwd()}/updater_logs")
+    update_account_balances_in_keydb()

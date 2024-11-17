@@ -1,13 +1,15 @@
 import os
 import sys
+from threading import Thread
 
 from pika.adapters.blocking_connection import BlockingChannel
 
 from settings import settings
+from updater import updater_main
 from utils import callback_after_receiving_a_message, connect_to_rabbitmq
 
 
-def main() -> None:
+def receiver_main() -> None:
     channel: BlockingChannel = connect_to_rabbitmq(
         settings.rabbitmq_user,
         settings.rabbitmq_password,
@@ -26,10 +28,14 @@ def main() -> None:
 
 if __name__ == "__main__":
     try:
-        main()
-    except KeyboardInterrupt:
+        print("First thread is starting...")
+        first_thread: Thread = Thread(target=receiver_main)
+        first_thread.start()
+
+        print("Second thread is starting...")
+        second_thread: Thread = Thread(target=updater_main)
+        second_thread.start()
+    except (Exception, KeyboardInterrupt):
         print("Interrupted")
-        try:
-            sys.exit(0)
-        except SystemExit:
-            os._exit(0)
+        first_thread.join()
+        second_thread.join()
