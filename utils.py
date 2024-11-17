@@ -1,7 +1,7 @@
 from json import dumps, loads
 from pathlib import Path
 from time import sleep
-from typing import Any
+from typing import Any, Optional
 
 from pika import (
     BasicProperties,
@@ -21,7 +21,7 @@ from settings import settings
 
 def connect_to_postgres(
     username: str, password: str, host: str, port: str, db_name: str
-) -> connection:
+) -> Optional[connection]:
     attempt_count: int = 0
     while attempt_count < 10:
         try:
@@ -38,7 +38,7 @@ def connect_to_postgres(
         return
 
 
-def connect_to_rabbitmq(username: str, password: str, host: str, port: str) -> BlockingChannel:
+def connect_to_rabbitmq(username: str, password: str, host: str, port: str) -> Optional[BlockingChannel]:
     attempt_count: int = 0
     while attempt_count < 10:
         try:
@@ -56,7 +56,7 @@ def connect_to_rabbitmq(username: str, password: str, host: str, port: str) -> B
         return
 
 
-def connect_to_redis(url: str) -> Redis | None:
+def connect_to_redis(url: str) -> Optional[Redis]:
     attempt_count: int = 0
     while attempt_count < 10:
         try:
@@ -108,7 +108,7 @@ def update_provider_balance(providers_id: int, amount: int) -> None:
 
 def callback_after_receiving_a_message(
     ch: BlockingChannel, method: Any, properties: BasicProperties, body: bytes
-):
+) -> None:
     data = loads(body.decode("utf-8"))
     print(f" [x] Received {data}")
     account_id = data["id"]
@@ -137,7 +137,7 @@ def prepare_postgres_database_with_initial_data(
 
 def publish_message_to_rabbitmq_queue(
     channel: BlockingChannel, queue_name: str, id: int, value: int
-):
+) -> None:
     message = {"id": id, "value": value}
     channel.basic_publish(
         exchange="",
