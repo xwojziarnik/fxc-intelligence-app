@@ -4,15 +4,13 @@ services:
   postgres:
     image: postgres:14
     environment:
-      POSTGRES_USER: $POSTGRES_DB_USER
-      POSTGRES_PASSWORD: $POSTGRES_DB_PASSWORD
-      POSTGRES_DB: $POSTGRES_DB_NAME
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: fxc
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - app_network
 
   keydb:
     image: eqalpha/keydb:latest
@@ -21,52 +19,21 @@ services:
       - ./keydb_data:/data
     ports:
       - "6379:6379"
-    networks:
-      - app_network
 
   rabbitmq:
     image: rabbitmq:3-management
     environment:
-      RABBITMQ_DEFAULT_USER: $RABBITMQ_USER
-      RABBITMQ_DEFAULT_PASS: $RABBITMQ_PASSWORD
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
     volumes:
       - ./rabbitmq_data:/var/lib/rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
-    networks:
-      - app_network
 
   producer:
-    build:
-      context: .
-      dockerfile: Dockerfile.producer
-    command: producer
+    build: .
     init: true
     depends_on:
       - postgres
       - rabbitmq
-    networks:
-      - app_network
-    env_file:
-      - .env
-
-  receiver:
-    build:
-      context: .
-      dockerfile: Dockerfile.receiver
-    command: receiver
-    init: true
-    depends_on:
-      - postgres
-      - rabbitmq
-      - producer
-    networks:
-      - app_network
-    volumes:
-      - ./cron-logs:/var/log/
-    env_file:
-      - .env
-
-networks:
-  app_network:

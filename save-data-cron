@@ -1,2 +1,0 @@
-*/1 * * * * root /bin/bash /app/script.sh >> /var/log/cron.log 2>&1
-# new line character required

@@ -8,8 +8,9 @@ WORKDIR /app
 COPY . /app
 
 # Install the necessary Python packages
-RUN pip install --no-cache-dir psycopg2-binary pika pydantic-settings
+RUN pip install --no-cache-dir psycopg2-binary pika
 
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x main.py
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["python", "-u", "./main.py"]
+
