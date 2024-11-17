@@ -95,7 +95,7 @@ To address the ambiguity, I prepared three different solutions, each exploring a
 Below, I’ve provided a brief overview and analysis of each solution.
 
 #### Important note
-Before running the application using docker compose/docker-compose, please copy the environment variables template to a `.env` file:
+Before running the application using `docker compose`/`docker-compose`, please copy the environment variables template to a `.env` file:
 
 ```bash
 cp .env.template .env
