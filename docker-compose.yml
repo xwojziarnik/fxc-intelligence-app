@@ -75,6 +75,8 @@ services:
       - app_network
     env_file:
       - .env
+    volumes:
+      - ./updater_logs:/app/updater_logs
 
 networks:
   app_network:
