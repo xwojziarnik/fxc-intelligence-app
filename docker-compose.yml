@@ -62,19 +62,6 @@ services:
       - app_network
     env_file:
       - .env
-
-  updater:
-    build: .
-    command: updater
-    init: true
-    depends_on:
-      - postgres
-      - keydb
-      - receiver
-    networks:
-      - app_network
-    env_file:
-      - .env
     volumes:
       - ./updater_logs:/app/updater_logs
 
