@@ -1,12 +1,14 @@
 import os
 import sys
 
+from pika.adapters.blocking_connection import BlockingChannel
+
 from settings import settings
 from utils import callback_after_receiving_a_message, connect_to_rabbitmq
 
 
-def main():
-    channel = connect_to_rabbitmq(
+def main() -> None:
+    channel: BlockingChannel = connect_to_rabbitmq(
         settings.rabbitmq_user,
         settings.rabbitmq_password,
         settings.rabbitmq_host,
