@@ -4,4 +4,4 @@ postgres_data/
 .python-version
 **/__pycache__/
 .env
-cron-logs/
+updater_logs/
