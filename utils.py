@@ -56,6 +56,20 @@ def connect_to_rabbitmq(username: str, password: str, host: str, port: str) -> B
         return
 
 
+def connect_to_redis(url: str) -> Redis | None:
+    attempt_count: int = 0
+    while attempt_count < 10:
+        try:
+            return from_url(url)
+        except Exception:
+            attempt_count += 1
+            print(f"Reconnecting to Redis, {attempt_count=}")
+            time.sleep(3)
+    else:
+        print("Couldn't connect to Redis")
+        return
+
+
 def save_transaction_to_postgres(account_id: int, transaction_amount: int) -> None:
     db_connection: connection = connect_to_postgres(
         username=settings.postgres_db_user,
