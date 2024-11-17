@@ -111,7 +111,8 @@ def prepare_postgres_database_with_initial_data(
         port=port,
     )
     db_cursor = db_connection.cursor()
-    db_cursor.execute(query for query in sql_queries)
+    for query in sql_queries:
+        db_cursor.execute(query)
     db_connection.commit()
     print("DB init complete, starting to produce txs...")
     db_connection.close()
