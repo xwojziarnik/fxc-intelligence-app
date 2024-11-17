@@ -1,0 +1,6 @@
+!*.py
+!*.sh
+!Dockerfile.*
+!.env
+!requirements.*
+!save-data-cron
