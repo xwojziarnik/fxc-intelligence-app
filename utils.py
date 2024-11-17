@@ -109,7 +109,10 @@ def update_provider_balance(providers_id: int, amount: int) -> None:
 
 
 def callback_after_receiving_a_message(
-    ch: BlockingChannel, method: Any, properties: BasicProperties, body: bytes
+    ch: Optional[BlockingChannel],
+    method: Optional[Any],
+    properties: Optional[BasicProperties],
+    body: bytes,
 ) -> None:
     data = loads(body.decode("utf-8"))
     print(f" [x] Received {data}")
