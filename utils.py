@@ -38,7 +38,9 @@ def connect_to_postgres(
         return
 
 
-def connect_to_rabbitmq(username: str, password: str, host: str, port: str) -> Optional[BlockingChannel]:
+def connect_to_rabbitmq(
+    username: str, password: str, host: str, port: str
+) -> Optional[BlockingChannel]:
     attempt_count: int = 0
     while attempt_count < 10:
         try:
