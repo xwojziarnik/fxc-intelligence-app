@@ -9,13 +9,6 @@ COPY . /app
 
 RUN cat .env >> /etc/environment
 
-RUN apt-get update && apt-get install -y bash vim lsb-release curl gpg
-RUN curl -fsSL https://packages.redis.io/gpg \
-    | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-RUN chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
-RUN echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" \
-    | tee /etc/apt/sources.list.d/redis.list
-RUN apt-get update && apt-get install -y redis
 RUN pip install --no-cache-dir -r requirements.lock.txt
 
 RUN chmod +x ./entrypoint.sh
