@@ -38,9 +38,7 @@ services:
       - app_network
 
   producer:
-    build:
-      context: .
-      dockerfile: Dockerfile.producer
+    build: .
     command: producer
     init: true
     depends_on:
@@ -52,15 +50,27 @@ services:
       - .env
 
   receiver:
-    build:
-      context: .
-      dockerfile: Dockerfile.receiver
+    build: .
     command: receiver
     init: true
     depends_on:
       - postgres
       - rabbitmq
       - producer
+      - key_db
+    networks:
+      - app_network
+    env_file:
+      - .env
+
+  updater:
+    build: .
+    command: updater
+    init: true
+    depends_on:
+      - postgres
+      - key_db
+      - receiver
     networks:
       - app_network
     env_file:
