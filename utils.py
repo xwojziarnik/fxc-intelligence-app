@@ -1,6 +1,6 @@
-import time
 from json import dumps, loads
 from pathlib import Path
+from time import sleep
 from typing import Any
 
 from pika import (
@@ -32,7 +32,7 @@ def connect_to_postgres(
         except OperationalError:
             attempt_count += 1
             print(f"Reconnecting to PostgreSQL, {attempt_count=}")
-            time.sleep(2)
+            sleep(2)
     else:
         print("Couldn't connect to PostgreSQL")
         return
@@ -50,7 +50,7 @@ def connect_to_rabbitmq(username: str, password: str, host: str, port: str) -> B
         except AMQPConnectionError:
             attempt_count += 1
             print(f"Reconnecting to RabbitMQ, {attempt_count=}")
-            time.sleep(3)
+            sleep(3)
     else:
         print("Couldn't connect to RabbitMQ")
         return
@@ -64,7 +64,7 @@ def connect_to_redis(url: str) -> Redis | None:
         except Exception:
             attempt_count += 1
             print(f"Reconnecting to Redis, {attempt_count=}")
-            time.sleep(3)
+            sleep(3)
     else:
         print("Couldn't connect to Redis")
         return
