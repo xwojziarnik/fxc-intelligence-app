@@ -47,7 +47,7 @@ def connect_to_rabbitmq(username: str, password: str, host: str, port: str) -> B
         except AMQPConnectionError:
             attempt_count += 1
             print(f"Reconnecting to RabbitMQ, {attempt_count=}")
-            time.sleep(2)
+            time.sleep(3)
     else:
         print("Couldn't connect to RabbitMQ")
         return
