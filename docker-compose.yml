@@ -57,7 +57,7 @@ services:
       - postgres
       - rabbitmq
       - producer
-      - key_db
+      - keydb
     networks:
       - app_network
     env_file:
@@ -69,7 +69,7 @@ services:
     init: true
     depends_on:
       - postgres
-      - key_db
+      - keydb
       - receiver
     networks:
       - app_network
