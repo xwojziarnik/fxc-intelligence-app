@@ -148,3 +148,12 @@ def publish_message_to_rabbitmq_queue(
         ),
     )
     print(f" [x] Sent {message}")
+
+
+def create_logs_dir(path: str) -> None:
+    return Path(path).mkdir(parents=True, exist_ok=True)
+
+
+def save_message_to_log_file(log_filepath: str, message: str) -> None:
+    with open(log_filepath, "a") as file:
+        file.write(message)
