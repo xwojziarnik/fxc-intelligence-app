@@ -14,6 +14,12 @@ case "$1" in
     echo "Starting producer..."
     python -u main.py
     ;;
+  updater)
+    echo "Loading env variables..."
+    source .env
+    echo "Starting updater..."
+    python -u updater.py
+    ;;
   *)
     echo "Error: Unknown command '$1'."
     exit 1
