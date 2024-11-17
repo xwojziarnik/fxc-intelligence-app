@@ -62,7 +62,7 @@ def save_transaction_to_postgres(account_id: int, transaction_amount: int) -> No
         "INSERT INTO historical_transactions (provider_id, transaction_value) VALUES (%s, %s)",
         (account_id, transaction_amount),
     )
-    db_cursor.commit()
+    db_connection.commit()
     print(f"Saved transaction: {account_id}, {transaction_amount}")
     db_connection.close()
 
