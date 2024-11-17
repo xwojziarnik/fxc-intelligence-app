@@ -22,7 +22,7 @@ from settings import settings
 def connect_to_postgres(
     username: str, password: str, host: str, port: str, db_name: str
 ) -> connection:
-    attempt_count = 0
+    attempt_count: int = 0
     while attempt_count < 10:
         try:
             db_connection: connection = connect(
@@ -39,7 +39,7 @@ def connect_to_postgres(
 
 
 def connect_to_rabbitmq(username: str, password: str, host: str, port: str) -> BlockingChannel:
-    attempt_count = 0
+    attempt_count: int = 0
     while attempt_count < 10:
         try:
             credentials = PlainCredentials(username, password)
